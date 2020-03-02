@@ -1,63 +1,40 @@
 package com.fatush.library.controller;
 
-import com.fatush.library.exceptions.NotFoundException;
 import com.fatush.library.model.Book;
-import org.springframework.web.bind.annotation.*;
+import com.fatush.library.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @RequestMapping("book")
 @RestController
 public class BookController {
-    private int counter = 4;
 
-    public List<Book> books = new ArrayList<>() {{
-        add(new Book(1, "Lord of the rings", 5));
-        add(new Book(2, "Witcher", 1));
-        add(new Book(3, "Shantaram", 3));
-    }};
+    private final BookService bookService;
 
-
-    @GetMapping
-    public List<Book> list() {
-        return books;
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
-    @GetMapping("{id}")
-    public Book getOne(@PathVariable String id) {
-        return getBook(id);
+    @GetMapping
+    public Collection<Book> collection() {
+
+        return bookService.getAllBooks();
     }
 
     public Book getBook(@PathVariable String id) {
 
-        return books.stream()
-                .filter(book -> String.valueOf(book.getId()).equals(id))
-                .findFirst()
-                .orElseThrow(NotFoundException::new);
+        return bookService.getBookById(id);
     }
 
-    @PostMapping
-    public Book create(@RequestBody Book book) {
+    @GetMapping("{id}")
+    public Book getOne(@PathVariable String id) {
 
-        books.add(counter, book);
-        counter++;
-
-        return book;
-    }
-
-    @PutMapping("{id}")
-    public Book update(
-            @PathVariable int id,
-            @RequestBody Book book
-    ) {
-        books.set(id - 1, book);
-
-        return book;
-    }
-
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable int id) {
-        books.remove(id - 1);
+        return getBook(id);
     }
 }
