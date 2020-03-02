@@ -17,7 +17,9 @@ public class BorrowController {
     private BorrowService borrowService;
 
     @Autowired
-    public BorrowController(BorrowerService borrowerService, BookService bookService, BorrowService borrowService) {
+    public BorrowController(
+            BorrowerService borrowerService, BookService bookService, BorrowService borrowService
+    ) {
         this.borrowerService = borrowerService;
         this.bookService = bookService;
         this.borrowService = borrowService;
@@ -25,12 +27,13 @@ public class BorrowController {
 
     @PostMapping("{id}")
     public Borrower addBorrowedBook(
-            @PathVariable String id,
-            Book book
+            @PathVariable int id,
+            Book book,
+            Borrower borrower
     ) {
-        borrowService.addBorrowerBook(borrowerService.getBorrowerById(id), book);
+        borrowService.addBorrowerBook(borrower, book);
 
-        return borrowerService.getBorrowerById(id);
+        return borrower;
     }
 
     @DeleteMapping("{borrowerId}/{bookId}")
