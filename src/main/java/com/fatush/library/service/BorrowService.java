@@ -21,7 +21,7 @@ public class BorrowService {
         this.bookDao = bookDao;
     }
 
-    public Collection<Book> getBorrowerBooks(Borrower borrower) {
+    public Collection<Book> getAll(Borrower borrower) {
         return borrowDao.getBooks(borrower);
     }
 

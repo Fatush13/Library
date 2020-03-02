@@ -22,19 +22,14 @@ public class BookController {
     }
 
     @GetMapping
-    public Collection<Book> collection() {
+    public Collection<Book> getAllBooks() {
 
-        return bookService.getAllBooks();
-    }
-
-    public Book getBook(@PathVariable String id) {
-
-        return bookService.getBookById(id);
+        return bookService.getAll();
     }
 
     @GetMapping("{id}")
-    public Book getOne(@PathVariable String id) {
+    public Book getOneBook(@PathVariable String id) {
 
-        return getBook(id);
+        return bookService.getBookById(id);
     }
 }

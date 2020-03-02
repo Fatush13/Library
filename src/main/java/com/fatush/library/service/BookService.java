@@ -21,7 +21,7 @@ public class BookService {
         this.bookDao = bookDao;
     }
 
-    public Collection<Book> getAllBooks() {
+    public Collection<Book> getAll() {
         return bookDao.getBooks();
     }
 

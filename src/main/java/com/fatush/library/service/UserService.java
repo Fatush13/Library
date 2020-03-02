@@ -18,18 +18,18 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public Collection<User> getAllUsers() {
+    public Collection<User> getAll() {
         return userDao.getUsers();
     }
 
-    public User getOneUser(String id) {
+    public User getUserById(String id) {
         return userDao.getUsers().stream()
                 .filter(user -> String.valueOf(user.getId()).equals(id))
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
     }
 
-    public void addUser(User user) {
+    public void addNewUser(User user) {
         userDao.add(user);
     }
 

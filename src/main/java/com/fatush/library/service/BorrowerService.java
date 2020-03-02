@@ -22,7 +22,7 @@ public class BorrowerService {
         this.bookDao = bookDao;
     }
 
-    public Collection<Borrower> getAllBorrowers() {
+    public Collection<Borrower> getAll() {
         return borrowerDao.getBorrowers();
     }
 

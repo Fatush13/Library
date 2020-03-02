@@ -22,9 +22,9 @@ public class BorrowerController {
     }
 
     @GetMapping
-    public Collection<Borrower> collection() {
+    public Collection<Borrower> getAllBorrowers() {
 
-        return borrowerService.getAllBorrowers();
+        return borrowerService.getAll();
     }
 
     public Borrower getBorrower(@PathVariable String id) {
@@ -49,7 +49,7 @@ public class BorrowerController {
     public Collection<Borrower> removeBorrower(@PathVariable int id) {
         borrowerService.removeBorrower(id);
 
-        return borrowerService.getAllBorrowers();
+        return borrowerService.getAll();
     }
 
 }

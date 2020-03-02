@@ -1,9 +1,11 @@
 package com.fatush.library.controller;
 
+import com.fatush.library.model.User;
 import com.fatush.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RequestMapping("/user")
 @RestController
@@ -16,5 +18,36 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping
+    public Collection<User> getAllUsers() {
+        return userService.getAll();
+    }
+
+    @GetMapping("{id}")
+    public User getOneUser(@PathVariable String id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping
+    public User addUser(@RequestBody User user) {
+        userService.addNewUser(user);
+
+        return user;
+    }
+
+    @PutMapping("{id}")
+    public User updateUser(
+            @PathVariable int id,
+            @RequestBody User user
+    ) {
+        userService.updateUser(id, user);
+
+        return user;
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteUser(@PathVariable int id) {
+        userService.removeUser(id);
+    }
 
 }
