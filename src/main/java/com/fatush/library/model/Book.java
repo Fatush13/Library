@@ -1,28 +1,30 @@
 package com.fatush.library.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Book {
 
-    private int id = 1;
+    private int id;
     private static AtomicInteger count = new AtomicInteger(0);
     private String name;
-    private int age;                 //age in days
-    private Calendar registerDate;     //date the book had been added to the library
+    private int registerDate;
+    private int borrowDate;
+    private int expireDate;
     private boolean isOld;
+    private boolean isExpired;
     private Borrower borrower;
-    private Calendar borrowDate;
 
     public Book() {
     }
 
-    public Book(String name, int age) {
+    public Book(String name) {
         this.name = name;
-        this.age = age;
         this.setRegisterDate();
-        this.setId(id);
+        this.setId(count.incrementAndGet());
+        this.setBorrowDate();
+        this.setOld(false);
     }
 
     public int getId() {
@@ -30,7 +32,7 @@ public class Book {
     }
 
     public void setId(int id) {
-        this.id = count.incrementAndGet();
+        this.id = id;
     }
 
     public static AtomicInteger getCount() {
@@ -49,20 +51,13 @@ public class Book {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Calendar getRegisterDate() {
+    public int getRegisterDate() {
         return registerDate;
     }
 
     public void setRegisterDate() {
-        registerDate = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        this.registerDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
     }
 
     public boolean isOld() {
@@ -81,13 +76,30 @@ public class Book {
         this.borrower = borrower;
     }
 
-    public Calendar getBorrowDate() {
+    public int getBorrowDate() {
         return borrowDate;
     }
 
     public void setBorrowDate() {
-        if (this.borrowDate == null) {
-            this.borrowDate = Calendar.getInstance();
-        } else this.borrowDate = null;
+        if(this.borrowDate == 0) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            this.borrowDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
+        } else this.borrowDate = 0;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        isExpired = expired;
+    }
+
+    public int getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(int expireDate) {
+        this.expireDate = expireDate;
     }
 }

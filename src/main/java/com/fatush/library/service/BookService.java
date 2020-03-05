@@ -6,6 +6,7 @@ import com.fatush.library.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
@@ -58,21 +59,17 @@ public class BookService {
     }
 
     public boolean checkIfOld(Book book) {
-        if (book.getRegisterDate().get(Calendar.YEAR) < Calendar.getInstance().get(Calendar.YEAR) ||
-                book.getRegisterDate().get(Calendar.DAY_OF_YEAR) > Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 90) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
+        int registryDate = book.getRegisterDate();
+        if (registryDate > currentDate + 90) {
             book.setOld(true);
-        }
-        return false;
-    }
-
-    public boolean checkBookQuantity(Book book) {
-        return getSameBooks(book.getName()).size() < 5;
-    }
-
-    public boolean isShortTerm(Book book) {
-        if (book.isOld()) {
             return true;
-        }
-        return checkBookQuantity(book);
+        } else return false;
+    }
+
+    public boolean checkBookShortage(Book book) {
+
+        return getSameBooks(book.getName()).size() < 5;
     }
 }

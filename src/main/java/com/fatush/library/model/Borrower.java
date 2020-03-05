@@ -1,12 +1,13 @@
 package com.fatush.library.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Borrower {
 
     private int id = 1;
     private String name;
-    private Collection<Book> borrowedBooks;
+    private List<String> borrowedBooks = new ArrayList<>();
     private static int idCounter = 1;
 
     public Borrower(String name) {
@@ -30,11 +31,11 @@ public class Borrower {
         this.name = name;
     }
 
-    public Collection<Book> getBorrowedBooks() {
+    public List<String> getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(Collection<Book> borrowedBooks) {
+    public void setBorrowedBooks(List<String> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 }

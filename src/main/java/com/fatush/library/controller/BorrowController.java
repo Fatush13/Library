@@ -4,36 +4,60 @@ import com.fatush.library.model.Book;
 import com.fatush.library.model.Borrower;
 import com.fatush.library.service.BookService;
 import com.fatush.library.service.BorrowService;
-import com.fatush.library.service.BorrowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RequestMapping("/borrower")
 @RestController
 public class BorrowController {
 
-    private BorrowerService borrowerService;
     private BookService bookService;
     private BorrowService borrowService;
 
     @Autowired
     public BorrowController(
-            BorrowerService borrowerService, BookService bookService, BorrowService borrowService
+            BookService bookService, BorrowService borrowService
     ) {
-        this.borrowerService = borrowerService;
         this.bookService = bookService;
         this.borrowService = borrowService;
     }
 
-    @PostMapping("{id}")
-    public Borrower addBorrowedBook(
-            @PathVariable int id,
-            Book book,
-            Borrower borrower
-    ) {
-        borrowService.addBorrowerBook(borrower, book);
+    @GetMapping
+    public Collection<Borrower> getAllBorrowers() {
+
+        return borrowService.getAll();
+    }
+
+    @GetMapping("{id}")
+    public Borrower getBorrowedBooks(@PathVariable String id) {
+
+        return borrowService.getBorrowerById(id);
+    }
+
+    @PostMapping
+    public Borrower addBorrower(@RequestBody Borrower borrower) {
+        borrowService.addBorrower(borrower);
 
         return borrower;
+    }
+
+    @DeleteMapping("{id}")
+    public Collection<Borrower> removeBorrower(@PathVariable int id) {
+        borrowService.removeBorrower(id);
+
+        return borrowService.getAll();
+    }
+
+    @PostMapping("{id}")
+    public Borrower addBorrowedBook(
+            @PathVariable String id,
+            Book book
+    ) {
+        borrowService.addBorrowedBook(borrowService.getBorrowerById(id), book);
+
+        return borrowService.getBorrowerById(id);
     }
 
     @DeleteMapping("{borrowerId}/{bookId}")
@@ -41,8 +65,8 @@ public class BorrowController {
             @PathVariable String borrowerId,
             @PathVariable String bookId
     ) {
-        borrowService.removeBorrowerBook(borrowerService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
+        borrowService.removeBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
 
-        return borrowerService.getBorrowerById(borrowerId);
+        return borrowService.getBorrowerById(borrowerId);
     }
 }
