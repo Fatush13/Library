@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class BorrowDao{
+public class BorrowDao {
 
     private static Map<Integer, Borrower> borrowers;
 
@@ -40,9 +40,9 @@ public class BorrowDao{
     }
 
     public void addBorrowed(Book book, Borrower borrower) {
-            borrower.getBorrowedBooks().add(book.getName());
-            book.setBorrower(borrower);
-            book.setBorrowDate();
+        borrower.getBorrowedBooks().add(book.getName());
+        book.setBorrower(borrower);
+        book.setBorrowDate();
     }
 
     public void changeBorrowDate(Book book) {

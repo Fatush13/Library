@@ -1,6 +1,5 @@
 package com.fatush.library.controller;
 
-import com.fatush.library.model.Book;
 import com.fatush.library.model.Borrower;
 import com.fatush.library.service.BookService;
 import com.fatush.library.service.BorrowService;
@@ -50,14 +49,14 @@ public class BorrowController {
         return borrowService.getAll();
     }
 
-    @PostMapping("{id}")
+    @GetMapping("{borrowerId}/{bookId}")
     public Borrower addBorrowedBook(
-            @PathVariable String id,
-            Book book
+            @PathVariable String borrowerId,
+            @PathVariable String bookId
     ) {
-        borrowService.addBorrowedBook(borrowService.getBorrowerById(id), book);
+        borrowService.addBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
 
-        return borrowService.getBorrowerById(id);
+        return borrowService.getBorrowerById(borrowerId);
     }
 
     @DeleteMapping("{borrowerId}/{bookId}")

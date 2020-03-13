@@ -27,6 +27,8 @@ public class BookController {
     @GetMapping("{id}")
     public Book getOneBook(@PathVariable String id) {
 
+        bookService.checkIfExpired(bookService.getBookById(id));
+
         return bookService.getBookById(id);
     }
 

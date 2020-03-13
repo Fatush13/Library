@@ -10,7 +10,7 @@ public class Book {
     private static AtomicInteger count = new AtomicInteger(0);
     private String name;
     private int registerDate;
-    private int borrowDate;
+    private int borrowDate = 0;
     private int expireDate;
     private boolean isOld;
     private boolean isExpired;
@@ -23,7 +23,6 @@ public class Book {
         this.name = name;
         this.setRegisterDate();
         this.setId(count.incrementAndGet());
-        this.setBorrowDate();
         this.setOld(false);
     }
 
@@ -81,7 +80,7 @@ public class Book {
     }
 
     public void setBorrowDate() {
-        if(this.borrowDate == 0) {
+        if (this.borrowDate == 0) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             this.borrowDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
         } else this.borrowDate = 0;

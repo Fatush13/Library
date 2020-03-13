@@ -27,8 +27,7 @@ public class BorrowService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
         borrowDao.addBorrowed(book, borrower);
-        borrowDao.changeBorrowDate(book);
-        if(bookService.checkIfOld(book) || bookService.checkBookShortage(book)){
+        if (bookService.checkIfOld(book) || bookService.checkBookShortage(book)) {
             book.setExpireDate(currentDate + 7);
         } else book.setExpireDate(currentDate + 30);
 
@@ -57,18 +56,5 @@ public class BorrowService {
 
     public void removeBorrower(int id) {
         borrowDao.removeBorrower(id);
-    }
-
-    public boolean checkIfExpired(Book book) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
-
-        if (book.isOld()) {
-            return book.getBorrowDate() + 28 > currentDate;
-        } if (!book.isOld()) {
-            return book.getBorrowDate() + 7 > currentDate;
-        }
-        book.setExpired(true);
-        return true;
     }
 }

@@ -72,4 +72,18 @@ public class BookService {
 
         return getSameBooks(book.getName()).size() < 5;
     }
+
+    public boolean checkIfExpired(Book book) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
+
+        if (book.isOld()) {
+            return book.getBorrowDate() + 28 > currentDate;
+        }
+        if (!book.isOld()) {
+            return book.getBorrowDate() + 7 > currentDate;
+        }
+        book.setExpired(true);
+        return true;
+    }
 }
