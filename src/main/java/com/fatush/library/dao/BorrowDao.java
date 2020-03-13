@@ -36,7 +36,7 @@ public class BorrowDao {
     }
 
     public void removeBook(Borrower borrower, Book book) {
-        borrower.getBorrowedBooks().remove(book);
+        borrower.getBorrowedBooks().remove(book.getName());
     }
 
     public void addBorrowed(Book book, Borrower borrower) {
@@ -45,12 +45,9 @@ public class BorrowDao {
         book.setBorrowDate();
     }
 
-    public void changeBorrowDate(Book book) {
-        book.setBorrowDate();
-    }
-
     public void removeBorrower(Book book) {
         book.setBorrower(null);
         book.setBorrowDate();
+        book.setExpireDate(0);
     }
 }

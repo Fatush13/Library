@@ -36,7 +36,6 @@ public class BorrowService {
     public void removeBorrowedBook(Borrower borrower, Book book) {
         borrowDao.removeBook(borrower, book);
         borrowDao.removeBorrower(book);
-        borrowDao.changeBorrowDate(book);
     }
 
     public Collection<Borrower> getAll() {

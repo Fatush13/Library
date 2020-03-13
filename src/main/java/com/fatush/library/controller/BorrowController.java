@@ -59,7 +59,7 @@ public class BorrowController {
         return borrowService.getBorrowerById(borrowerId);
     }
 
-    @DeleteMapping("{borrowerId}/{bookId}")
+    @GetMapping("{borrowerId}/{bookId}/del")
     public Borrower deleteBorrowedBook(
             @PathVariable String borrowerId,
             @PathVariable String bookId
