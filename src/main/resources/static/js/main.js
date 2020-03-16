@@ -60,7 +60,7 @@ Vue.component('message-row', {
     props: ['book', 'editBook', 'books'],
     template: '<div>' +
         '<i>({{book.id}})</i>' +
-        '{{book.name}}, {{book.registerDate}}, {{book.borrower}} {{book.borrowDate}}' +
+        '{{book.name}}, {{book.registerDate}}, {{book.borrower}}, {{book.borrowDate}}' +
         '<span style="position: absolute; right:0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="X" @click="del" />' +

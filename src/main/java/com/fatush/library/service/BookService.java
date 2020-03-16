@@ -33,25 +33,22 @@ public class BookService {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Book getBookByName(String name) {
-        return bookDao.getBooks().stream()
-                .filter(book -> book.getName().equals(name))
-                .findFirst()
-                .orElseThrow(NotFoundException::new);
-    }
-
-    public List<Book> getSameBooks(String name) {
+    public List<Book> getBooksByName(String name) {
         return bookDao.getBooks().stream()
                 .filter(book -> book.getName().equals(name))
                 .collect(Collectors.toList());
     }
 
     public void addBook(Book book) {
-        bookDao.add(book);
+        if (!book.getName().isEmpty()) {
+            bookDao.add(book);
+        }
     }
 
     public void updateBook(int id, Book book) {
-        bookDao.update(id, book);
+        if (!book.getName().isEmpty()) {
+            bookDao.update(id, book);
+        }
     }
 
     public void removeBook(int id) {
@@ -70,7 +67,7 @@ public class BookService {
 
     public boolean checkBookShortage(Book book) {
 
-        return getSameBooks(book.getName()).size() < 5;
+        return getBooksByName(book.getName()).size() < 5;
     }
 
     public boolean checkIfExpired(Book book) {

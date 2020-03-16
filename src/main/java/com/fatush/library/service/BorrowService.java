@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BorrowService {
@@ -30,7 +32,6 @@ public class BorrowService {
         if (bookService.checkIfOld(book) || bookService.checkBookShortage(book)) {
             book.setExpireDate(currentDate + 7);
         } else book.setExpireDate(currentDate + 30);
-
     }
 
     public void removeBorrowedBook(Borrower borrower, Book book) {
@@ -49,8 +50,16 @@ public class BorrowService {
                 .orElseThrow(NotFoundException::new);
     }
 
+    public List<Borrower> getBorrowerByName(String name) {
+        return borrowDao.getBorrowers().stream()
+                .filter(borrower -> String.valueOf(borrower.getName()).equals(name))
+                .collect(Collectors.toList());
+    }
+
     public void addBorrower(Borrower borrower) {
-        borrowDao.addBorrower(borrower);
+        if (!borrower.getName().isEmpty()) {
+            borrowDao.addBorrower(borrower);
+        }
     }
 
     public void removeBorrower(int id) {
