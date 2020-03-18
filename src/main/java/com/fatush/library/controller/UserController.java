@@ -3,12 +3,14 @@ package com.fatush.library.controller;
 import com.fatush.library.model.User;
 import com.fatush.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RequestMapping("/user")
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
 
     private UserService userService;
@@ -31,16 +33,6 @@ public class UserController {
     @PostMapping
     public User addUser(@RequestBody User user) {
         userService.addNewUser(user);
-
-        return user;
-    }
-
-    @PutMapping("{id}")
-    public User updateUser(
-            @PathVariable int id,
-            @RequestBody User user
-    ) {
-        userService.updateUser(id, user);
 
         return user;
     }

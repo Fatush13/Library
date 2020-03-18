@@ -54,12 +54,7 @@ public class BorrowController {
             @PathVariable String borrowerId,
             @PathVariable String bookId
     ) {
-        if (bookService.getBookById(bookId).getBorrower() == null) {
-            borrowService.addBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
-
-            return "Book has been successfully borrowed";
-        }
-        return "Book is already borrowed";
+        return borrowService.addBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
     }
 
     @GetMapping("{borrowerId}/{bookId}/del")

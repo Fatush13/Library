@@ -25,14 +25,19 @@ public class BorrowService {
         this.bookService = bookService;
     }
 
-    public void addBorrowedBook(Borrower borrower, Book book) {
+    public String addBorrowedBook(Borrower borrower, Book book) {
+        if (book.getBorrower() != null) {
+            return "Book is already borrowed";
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
         borrowDao.addBorrowed(book, borrower);
         if (bookService.checkIfOld(book) || bookService.checkBookShortage(book)) {
             book.setExpireDate(currentDate + 7);
         } else book.setExpireDate(currentDate + 30);
+        return "Book has been successfully borrowed";
     }
+
 
     public void removeBorrowedBook(Borrower borrower, Book book) {
         borrowDao.removeBook(borrower, book);
@@ -59,7 +64,7 @@ public class BorrowService {
     public void addBorrower(Borrower borrower) {
         if (!borrower.getName().isEmpty()) {
             borrowDao.addBorrower(borrower);
-        }
+        } else throw new IllegalArgumentException("Borrower name cannot be empty");
     }
 
     public void removeBorrower(int id) {

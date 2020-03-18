@@ -1,17 +1,20 @@
 package com.fatush.library.model;
 
+import java.util.List;
+
 public class User {
 
-    private int id;
+    private int id = 1;
+    private static int idCounter = 1;
     private String name;
     private String password;
-    private Role role;
+    private List<Role> roles;
 
-    public User(int id, String name, String password, Role role) {
-        this.id = id;
+    public User(String name, String password) {
+        this.setId(id);
         this.name = name;
         this.password = password;
-        this.role = role;
+        this.roles = List.of(Role.USER);
     }
 
     public int getId() {
@@ -19,7 +22,7 @@ public class User {
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id = idCounter++;
     }
 
     public String getName() {
@@ -34,12 +37,12 @@ public class User {
         return password;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public void setPassword(String password) {

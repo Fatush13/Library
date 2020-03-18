@@ -15,9 +15,14 @@ public class BookDao {
     static {
         books = new HashMap<>() {
             {
-                put(1, new Book("Lord of the rings"));
-                put(2, new Book("Witcher"));
+                put(1, new Book("The Master and Margarita"));
+                put(2, new Book("The Witcher"));
                 put(3, new Book("Shantaram"));
+                put(4, new Book("The Witcher"));
+                put(5, new Book("The Witcher"));
+                put(6, new Book("The Witcher"));
+                put(7, new Book("Game of Thrones"));
+                put(8, new Book("The Witcher"));
             }
         };
     }
@@ -26,8 +31,12 @@ public class BookDao {
         return books.values();
     }
 
+    public Book getBook(int id) {
+        return books.get(id);
+    }
+
     public void add(Book book) {
-        books.put(book.getCount().intValue() + 1, new Book(book.getName()));
+        books.put(Book.getCount().intValue() + 1, new Book(book.getName()));
     }
 
     public void update(int id, Book book) {

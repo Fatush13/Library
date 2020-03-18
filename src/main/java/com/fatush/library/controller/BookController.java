@@ -3,6 +3,7 @@ package com.fatush.library.controller;
 import com.fatush.library.model.Book;
 import com.fatush.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -27,19 +28,19 @@ public class BookController {
     @GetMapping("{id}")
     public Book getOneBook(@PathVariable String id) {
 
-        bookService.checkIfExpired(bookService.getBookById(id));
-
         return bookService.getBookById(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Book addBook(@RequestBody Book book) {
-        bookService.addBook(book);
 
-        return book;
+        return bookService.addBook(book);
+
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Book updateBook(
             @PathVariable int id,
             @RequestBody Book book
@@ -50,6 +51,7 @@ public class BookController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteBook(@PathVariable int id) {
         bookService.removeBook(id);
     }

@@ -1,6 +1,5 @@
 package com.fatush.library.dao;
 
-import com.fatush.library.model.Role;
 import com.fatush.library.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -16,18 +15,14 @@ public class UserDao {
     static {
         users = new HashMap<>() {
             {
-                put(1, new User(1, "Anthony", "123", Role.USER));
-                put(2, new User(2, "Witcher", "asd", Role.ADMIN));
+                put(1, new User("user", "123"));
+                put(2, new User("admin", "asd"));
             }
         };
     }
 
     public Collection<User> getUsers() {
         return users.values();
-    }
-
-    public void update(int id, User user) {
-        users.put(id, user);
     }
 
     public void remove(int id) {

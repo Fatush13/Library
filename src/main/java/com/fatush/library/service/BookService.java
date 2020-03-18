@@ -23,12 +23,22 @@ public class BookService {
     }
 
     public Collection<Book> getAll() {
+        bookDao.getBooks().forEach(book -> {
+            checkIfOld(book);
+            checkIfExpired(book);
+        });
+
         return bookDao.getBooks();
     }
 
     public Book getBookById(String id) {
+
         return bookDao.getBooks().stream()
-                .filter(book -> String.valueOf(book.getId()).equals(id))
+                .filter(book -> {
+                    checkIfExpired(book);
+                    checkIfOld(book);
+                    return String.valueOf(book.getId()).equals(id);
+                })
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
     }
@@ -39,15 +49,18 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public void addBook(Book book) {
+    public Book addBook(Book book) {
         if (!book.getName().isEmpty()) {
             bookDao.add(book);
-        }
+            return book;
+        } else throw new IllegalArgumentException("Book name cannot be empty");
     }
 
     public void updateBook(int id, Book book) {
         if (!book.getName().isEmpty()) {
-            bookDao.update(id, book);
+            Book bookFromDB = getBookById(Integer.toString(id));
+            bookFromDB.setName(book.getName());
+            bookDao.update(id, bookFromDB);
         }
     }
 
@@ -56,13 +69,16 @@ public class BookService {
     }
 
     public boolean checkIfOld(Book book) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
-        int registryDate = book.getRegisterDate();
-        if (registryDate > currentDate + 90) {
-            book.setOld(true);
-            return true;
-        } else return false;
+        if (book.getId() <= bookDao.getBooks().size()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
+            int registryDate = book.getRegisterDate();
+            if (registryDate > currentDate + 90) {
+                book.setOld(true);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean checkBookShortage(Book book) {
@@ -71,16 +87,19 @@ public class BookService {
     }
 
     public boolean checkIfExpired(Book book) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
+        if (book.getId() <= bookDao.getBooks().size()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            int currentDate = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
 
-        if (book.isOld()) {
-            return book.getBorrowDate() + 28 > currentDate;
+            if (book.isOld()) {
+                return book.getBorrowDate() + 28 > currentDate;
+            }
+            if (!book.isOld()) {
+                return book.getBorrowDate() + 7 > currentDate;
+            }
+            book.setExpired(true);
+            return true;
         }
-        if (!book.isOld()) {
-            return book.getBorrowDate() + 7 > currentDate;
-        }
-        book.setExpired(true);
-        return true;
+        return false;
     }
 }
