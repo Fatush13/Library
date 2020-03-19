@@ -1,5 +1,7 @@
 package com.fatush.library.configuration;
 
+import com.fatush.library.handlers.CustomAuthenticationSuccessHandler;
+import com.fatush.library.handlers.CustomLogoutSuccessHandler;
 import com.fatush.library.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -18,29 +20,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsServiceImpl userDetailsService;
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     @Autowired
-    public WebSecurityConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService) {
+    public WebSecurityConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, CustomAuthenticationSuccessHandler authenticationSuccessHandler, CustomLogoutSuccessHandler customLogoutSuccessHandler) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
+        this.customAuthenticationSuccessHandler = authenticationSuccessHandler;
+        this.customLogoutSuccessHandler = customLogoutSuccessHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/book", "/book/*").permitAll()
+                .antMatchers("/", "/book", "/book/*", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .permitAll()
                 .and()
-                .logout().permitAll().logoutSuccessUrl("/login")
-                .and()
                 .csrf()
                 .disable();
+
+        http
+                .formLogin()
+                .successHandler(customAuthenticationSuccessHandler)
+                .permitAll();
+
+        http
+                .logout().permitAll()
+                .logoutSuccessHandler(customLogoutSuccessHandler)
+                .logoutSuccessUrl("/login");
     }
 
+    /*  UsernamePasswordAuthenticationFilter*/
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);

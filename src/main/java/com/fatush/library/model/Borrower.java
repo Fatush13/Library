@@ -2,17 +2,22 @@ package com.fatush.library.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Borrower {
 
-    private int id = 1;
+    private int id;
+    private static AtomicInteger count = new AtomicInteger(0);
     private String name;
     private List<String> borrowedBooks = new ArrayList<>();
-    private static int idCounter = 1;
+
+    public Borrower() {
+        this.setId(count.incrementAndGet());
+    }
 
     public Borrower(String name) {
         this.name = name;
-        this.setId(id);
+        this.setId(count.incrementAndGet());
     }
 
     public int getId() {
@@ -20,7 +25,15 @@ public class Borrower {
     }
 
     public void setId(int id) {
-        this.id = idCounter++;
+        this.id = id;
+    }
+
+    public static AtomicInteger getCount() {
+        return count;
+    }
+
+    public static void setCount(AtomicInteger count) {
+        Borrower.count = count;
     }
 
     public String getName() {

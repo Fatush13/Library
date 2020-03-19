@@ -4,6 +4,8 @@ import com.fatush.library.dao.UserDao;
 import com.fatush.library.exceptions.NotFoundException;
 import com.fatush.library.model.Role;
 import com.fatush.library.model.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ import java.util.List;
 
 @Service
 public class UserService {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
 
     private final UserDao userDao;
 
@@ -29,26 +34,33 @@ public class UserService {
         return userDao.getUsers().stream()
                 .filter(user -> String.valueOf(user.getId()).equals(id))
                 .findFirst()
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User with id: " + id + " is not found"));
     }
 
     public User getUserByName(String name) {
         return userDao.getUsers().stream()
                 .filter(user -> user.getName().equals(name))
                 .findFirst()
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Username " + name + " is incorrect"));
     }
 
     public void addNewUser(User user) {
         if (!user.getName().isEmpty()) {
             if (!user.getPassword().isEmpty()) {
                 userDao.add(user);
-            } else throw new IllegalArgumentException("User password cannot be empty");
-        } else throw new IllegalArgumentException("User name cannot be empty");
+                logger.warn("New user " + user.getName() + " has been successfully added");
+            } else {
+                logger.error("Prevented adding new user with empty password");
+                throw new IllegalArgumentException("User password cannot be empty");
+            }
+        } else {
+            logger.error("Prevented adding new user with empty username");
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
     }
 
     public void removeUser(int id) {
         userDao.remove(id);
+        logger.warn("User " + getUserById(Integer.toString(id)).getName() + " has been removed");
     }
-
 }

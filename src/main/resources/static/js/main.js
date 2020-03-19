@@ -30,12 +30,14 @@ Vue.component('message-form', {
     template:
         '<div>' +
         '<input type="text" placeholder="Type new name" v-model="name" />' +
-    '<input type="button" value="Save" @click="save" />' +
+        '<input type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function () {
-            var book = {id: this.id, name: this.name,
-                age: this.age, registerDate: this.registerDate};
+            var book = {
+                id: this.id, name: this.name,
+                age: this.age, registerDate: this.registerDate
+            };
 
             if (this.id) {
                 bookApi.update({id: this.id}, book).then(result =>

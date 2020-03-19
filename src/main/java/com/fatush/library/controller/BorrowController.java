@@ -4,6 +4,8 @@ import com.fatush.library.model.Borrower;
 import com.fatush.library.service.BookService;
 import com.fatush.library.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -52,17 +54,19 @@ public class BorrowController {
     @GetMapping("{borrowerId}/{bookId}")
     public String addBorrowedBook(
             @PathVariable String borrowerId,
-            @PathVariable String bookId
+            @PathVariable String bookId,
+            @AuthenticationPrincipal UserDetails user
     ) {
-        return borrowService.addBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
+        return borrowService.addBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId), user);
     }
 
     @GetMapping("{borrowerId}/{bookId}/del")
     public Borrower deleteBorrowedBook(
             @PathVariable String borrowerId,
-            @PathVariable String bookId
+            @PathVariable String bookId,
+            @AuthenticationPrincipal UserDetails user
     ) {
-        borrowService.removeBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId));
+        borrowService.removeBorrowedBook(borrowService.getBorrowerById(borrowerId), bookService.getBookById(bookId), user);
 
         return borrowService.getBorrowerById(borrowerId);
     }

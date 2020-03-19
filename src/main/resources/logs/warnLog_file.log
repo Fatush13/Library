@@ -1,0 +1,45 @@
+2020-03-19 17:40:44 WARN  AuthenticationSuccessHandlerImpl:26 - User org.springframework.security.core.userdetails.User@36ebcb: Username: user; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER has logged in successfully
+2020-03-19 17:50:56 WARN  AnnotationConfigServletWebServerApplicationContext:558 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'webSecurityConfig' defined in file [/home/fatush/IdeaProjects/Library/target/classes/com/fatush/library/configuration/WebSecurityConfig.class]: Unsatisfied dependency expressed through constructor parameter 3; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.fatush.library.handlers.CustomAuthenticationFailureHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2020-03-19 18:03:19 WARN  CustomAuthenticationSuccessHandler:23 - org.springframework.security.core.userdetails.User@586034f: Username: admin; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN has logged in successfully
+2020-03-19 18:07:27 WARN  CustomAuthenticationSuccessHandler:23 - org.springframework.security.web.authentication.WebAuthenticationDetails@fffde5d4: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: A0E6390CF0D98E72019A68E722C7C922 has logged in successfully
+2020-03-19 18:08:50 WARN  CustomAuthenticationSuccessHandler:23 - User has logged in successfullyorg.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: nullorg.springframework.security.core.userdetails.User@36ebcb: Username: user; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER
+2020-03-19 18:10:01 WARN  CustomAuthenticationSuccessHandler:23 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@36ebcb: Username: user; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER
+2020-03-19 18:11:56 WARN  CustomAuthenticationSuccessHandler:23 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@36ebcb: Username: user; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER
+2020-03-19 18:17:16 WARN  CustomAuthenticationSuccessHandler:23 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@586034f: Username: admin; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN
+2020-03-19 18:18:16 WARN  CustomAuthenticationSuccessHandler:23 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@586034f: Username: admin; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN
+2020-03-19 18:18:20 WARN  CustomLogoutSuccessHandler:22 - User has logged off 
+org.springframework.security.core.userdetails.User@586034f: Username: admin; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN
+2020-03-19 18:23:54 WARN  CustomAuthenticationSuccessHandler:24 - 
+2020-03-19 18:24:12 WARN  CustomAuthenticationSuccessHandler:24 - 
+2020-03-19 18:24:41 WARN  CustomAuthenticationFailureHandler:22 - User has failed to log in
+2020-03-19 18:25:11 WARN  CustomAuthenticationSuccessHandler:24 - POST
+2020-03-19 18:25:29 WARN  CustomAuthenticationFailureHandler:22 - User has failed to log in
+2020-03-19 18:27:05 WARN  CustomAuthenticationFailureHandler:22 - User has failed to log in 
+org.springframework.security.core.context.SecurityContextImpl@ffffffff: Null authentication
+2020-03-19 18:29:38 WARN  CustomAuthenticationFailureHandler:22 - User has failed to log in 
+null
+2020-03-19 18:30:21 WARN  CustomAuthenticationFailureHandler:22 - User has failed to log in 
+200
+2020-03-19 18:31:47 WARN  CustomAuthenticationFailureHandler:22 - User has failed to log in 
+[]null
+2020-03-19 18:38:38 WARN  CustomApplicationListener:18 - Failed to login using username "user"
+2020-03-19 18:38:38 WARN  CustomApplicationListener:19 - Failed to login using password "1"
+2020-03-19 18:45:01 WARN  CustomAuthenticationSuccessHandler:30 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@586034f: Username: admin; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN
+2020-03-19 18:45:22 WARN  CustomLogoutSuccessHandler:22 - User has logged off 
+org.springframework.security.core.userdetails.User@586034f: Username: admin; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN
+2020-03-19 18:45:40 WARN  CustomAuthenticationSuccessHandler:30 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@36ebcb: Username: user; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER
+2020-03-19 18:52:05 WARN  CustomAuthenticationSuccessHandler:28 - User has logged in successfully 
+org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null
+org.springframework.security.core.userdetails.User@36ebcb: Username: user; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER

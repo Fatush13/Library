@@ -31,7 +31,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByName(username);
         UserBuilder userBuilder;
-
         userBuilder = org.springframework.security.core.userdetails.User.withUsername(username);
         userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
         userBuilder.roles(user.getRoles().stream().map(Object::toString).collect(Collectors.joining()));

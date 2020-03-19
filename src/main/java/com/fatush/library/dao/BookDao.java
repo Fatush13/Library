@@ -31,10 +31,6 @@ public class BookDao {
         return books.values();
     }
 
-    public Book getBook(int id) {
-        return books.get(id);
-    }
-
     public void add(Book book) {
         books.put(Book.getCount().intValue() + 1, new Book(book.getName()));
     }
