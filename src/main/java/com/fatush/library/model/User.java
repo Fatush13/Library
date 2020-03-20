@@ -1,17 +1,21 @@
 package com.fatush.library.model;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
 
     private int id = 1;
-    private static int idCounter = 1;
+    private static AtomicInteger count = new AtomicInteger(0);
     private String name;
     private String password;
     private List<Role> roles;
 
+    public User() {
+    }
+
     public User(String name, String password) {
-        this.setId(id);
+        this.setId(count.incrementAndGet());
         this.name = name;
         this.password = password;
         this.roles = List.of(Role.USER);
@@ -22,7 +26,15 @@ public class User {
     }
 
     public void setId(int id) {
-        this.id = idCounter++;
+        this.id = id;
+    }
+
+    public static AtomicInteger getCount() {
+        return count;
+    }
+
+    public static void setCount(AtomicInteger count) {
+        User.count = count;
     }
 
     public String getName() {

@@ -54,15 +54,21 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public Book addBook(Book book) {
-        if (!book.getName().isEmpty()) {
-            bookDao.add(book);
-            logger.warn("Book \"" + book.getName() + "\" with id: " + Book.getCount() + " has been successfully added");
+    public String addNewBook(Book book) {
+        if (book.getName() != null) {
+            if (!book.getName().isEmpty()) {
+                bookDao.add(book);
+                logger.warn("Book \"" + book.getName() + "\" with id: " + Book.getCount() + " has been successfully added");
 
-            return book;
+                return "Book \"" + book.getName() + "\" has been successfully added";
+            } else
+                logger.error("Prevented adding book with empty name");
+
+            return "Book name cannot be empty";
         } else
-            logger.error("Prevented adding book with empty name");
-        throw new IllegalArgumentException("Book name cannot be empty");
+            logger.error("Prevented adding a book without name parameter");
+
+        return "Book name cannot be empty";
     }
 
     public void updateBook(int id, Book book) {

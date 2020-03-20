@@ -6,13 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Borrower {
 
-    private int id;
+    private int id = 1;
     private static AtomicInteger count = new AtomicInteger(0);
     private String name;
     private List<String> borrowedBooks = new ArrayList<>();
 
     public Borrower() {
-        this.setId(count.incrementAndGet());
     }
 
     public Borrower(String name) {

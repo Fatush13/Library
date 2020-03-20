@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Book {
 
-    private int id;
+    private int id = 1;
     private static AtomicInteger count = new AtomicInteger(0);
     private String name;
     private int registerDate;

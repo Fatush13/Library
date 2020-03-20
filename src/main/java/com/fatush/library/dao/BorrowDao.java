@@ -2,6 +2,7 @@ package com.fatush.library.dao;
 
 import com.fatush.library.model.Book;
 import com.fatush.library.model.Borrower;
+import com.fatush.library.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class BorrowDao {
     }
 
     public void addBorrower(Borrower borrower) {
-        borrowers.put(borrower.getId(), borrower);
+        borrowers.put(Book.getCount().intValue() + 1, new Borrower(borrower.getName()));
     }
 
     public void removeBorrower(int id) {

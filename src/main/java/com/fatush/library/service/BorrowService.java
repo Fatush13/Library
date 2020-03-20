@@ -67,14 +67,22 @@ public class BorrowService {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public void addBorrower(Borrower borrower) {
-        if (!borrower.getName().isEmpty()) {
-            borrowDao.addBorrower(borrower);
-            logger.warn("New borrower \"" + borrower.getName() + "\" has been successfully added");
-        } else {
-            logger.error("Prevented adding new borrower with empty name");
-            throw new IllegalArgumentException("Borrower name cannot be empty");
-        }
+    public String addBorrower(Borrower borrower) {
+        if (borrower.getName() != null) {
+            if (!borrower.getName().isEmpty()) {
+                borrowDao.addBorrower(borrower);
+                logger.warn("New borrower \"" + borrower.getName() + "\" has been successfully added");
+
+                return "Borrower \"" + borrower.getName() + "\" has been successfully added";
+            } else {
+                logger.error("Prevented adding new borrower with empty name");
+
+                return "Borrower name cannot be empty";
+            }
+        } else
+            logger.error("Prevented adding new borrower without name parameter");
+
+        return "Borrower name cannot be empty";
     }
 
     public void removeBorrower(int id) {

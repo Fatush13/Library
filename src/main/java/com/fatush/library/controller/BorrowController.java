@@ -38,10 +38,8 @@ public class BorrowController {
     }
 
     @PostMapping
-    public Borrower addBorrower(@RequestBody Borrower borrower) {
-        borrowService.addBorrower(borrower);
-
-        return borrower;
+    public String addBorrower(@RequestBody Borrower borrower) {
+        return borrowService.addBorrower(borrower);
     }
 
     @DeleteMapping("{id}")

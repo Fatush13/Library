@@ -25,11 +25,11 @@ public class UserDao {
         return users.values();
     }
 
-    public void remove(int id) {
-        users.remove(id);
+    public void add(User user) {
+        users.put(User.getCount().intValue() + 1, new User(user.getName(), user.getPassword()));
     }
 
-    public void add(User user) {
-        users.put(user.getId(), user);
+    public void remove(int id) {
+        users.remove(id);
     }
 }
