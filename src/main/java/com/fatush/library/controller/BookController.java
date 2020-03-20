@@ -33,9 +33,10 @@ public class BookController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public String addBook(@RequestBody Book book) {
+    public Book addBook(@RequestBody Book book) {
+        bookService.addNewBook(book);
 
-        return bookService.addNewBook(book);
+        return book;
 
     }
 

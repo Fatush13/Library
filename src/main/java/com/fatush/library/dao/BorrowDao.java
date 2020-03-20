@@ -2,7 +2,6 @@ package com.fatush.library.dao;
 
 import com.fatush.library.model.Book;
 import com.fatush.library.model.Borrower;
-import com.fatush.library.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

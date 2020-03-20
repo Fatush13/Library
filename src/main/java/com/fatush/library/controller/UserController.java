@@ -31,8 +31,10 @@ public class UserController {
     }
 
     @PostMapping
-    public String addUser(@RequestBody User user) {
-        return userService.addNewUser(user);
+    public User addUser(@RequestBody User user) {
+        userService.addNewUser(user);
+
+        return user;
     }
 
     @DeleteMapping("{id}")

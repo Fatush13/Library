@@ -44,34 +44,32 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Username " + name + " is incorrect"));
     }
 
-    public String addNewUser(User user) {
+    public void addNewUser(User user) {
         if (user.getName() != null) {
             if (!user.getName().isEmpty()) {
                 if (user.getPassword() != null) {
                     if (!user.getPassword().isEmpty()) {
                         userDao.add(user);
                         logger.warn("New user " + user.getName() + " has been successfully added");
-
-                        return "User \"" + user.getName() + "\" has been successfully added";
                     } else {
                         logger.error("Prevented adding new user with empty password");
 
-                        return "User password cannot be empty";
+                        throw new IllegalArgumentException("User password cannot be empty");
                     }
                 } else {
                     logger.error("Prevented adding new user without password parameter");
 
-                    return "User password cannot be empty";
+                    throw new IllegalArgumentException("Username cannot be empty");
                 }
             } else {
                 logger.error("Prevented adding new user with empty username");
 
-                return "Username cannot be empty";
+                throw new IllegalArgumentException("Username cannot be empty");
             }
         } else {
             logger.error("Prevented adding new user without username parameter");
 
-            return "Username cannot be empty";
+            throw new IllegalArgumentException("Username cannot be empty");
         }
     }
 
